@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dynamic Island Effect</title>
+    <style>
+     :root {
+  --gradient-color: radial-gradient(#ccc, #666, #222);
+  --popup-bg: #000;
+  --popup-border-radius: 20px;
+  --transition-speed: 0.5s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #fff;
+}
+
+.box {
+  position: relative;
+  width: 300px;
+  height: 600px;
+  background: #666;
+  border-radius: 50px;
+}
+
+.box::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  background: var(--popup-bg);
+  border-radius: 48px;
+}
+
+.inner {
+  position: absolute;
+  inset: 3px;
+  background: url(bg.jpg);
+  background-size: cover;
+  background-position: center;
+  border-radius: 48px;
+  border: 10px solid var(--popup-bg);
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transition: var(--transition-speed);
+}
+
+.box:hover .inner {
+  opacity: 1;
+}
+
+.btn,
+.rightSide {
+  position: absolute;
+  width: 3px;
+  background: var(--gradient-color);
+  z-index: 10;
+  border-radius: 4px;
+}
+
+.btn {
+  left: -2px;
+  background: var(--gradient-color);
+}
+
+.btn:nth-child(1) {
+  top: 110px;
+  height: 26px;
+}
+
+.btn:nth-child(2) {
+  top: 160px;
+  height: 40px;
+}
+
+.btn:nth-child(3) {
+  top: 220px;
+  height: 40px;
+}
+
+.rightSide {
+  right: -2px;
+  top: 170px;
+  height: 70px;
+}
+
+.island_popup {
+  position: absolute;
+  top: 10px;
+  width: 90px;
+  height: 25px;
+  background: var(--popup-bg);
+  border-radius: var(--popup-border-radius);
+  transition: var(--transition-speed);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.island_popup:hover {
+  width: 200px;
+  height: 25px;
+  border-radius: 50px;
+}
+
+.island_popup.active {
+  width: 250px;
+  height: 60px;
+  border-radius: 50px;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+}
+
+.imgBx {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  transition: var(--transition-speed);
+  border-radius: 50%;
+  scale: 0;
+}
+
+.imgBx img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.island_popup.active .imgBx {
+  width: 40px;
+  height: 40px;
+  scale: 1;
+  margin-right: 8px;
+}
+
+.content p {
+  color: #fff;
+  font-size: 0.65em;
+  visibility: hidden;
+  opacity: 0;
+  transition: var(--transition-speed);
+}
+
+.action {
+  display: flex;
+  gap: 12px;
+  visibility: hidden;
+  opacity: 0;
+  transition: var(--transition-speed);
+}
+
+.island_popup.active p,
+.island_popup.active .action {
+  visibility: visible;
+  opacity: 1;
+}
+
+ion-icon {
+  transition: var(--transition-speed);
+}
+
+ion-icon.red:hover,
+ion-icon.green:hover {
+  transform: scale(1.2);
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="inner">
+        <div class="island_popup">
+          <div class="content">
+            <div class="details">
+              <div class="imgBx">
+                <img src="fix.jpeg" />
+              </div>
+              <p>segun Calling</p>
+            </div>
+            <div class="action">
+              <ion-icon name="call" class="red"></ion-icon>
+              <ion-icon name="call" class="green"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+      <i class="btn btn1"></i>
+      <i class="btn btn2"></i>
+      <i class="btn btn3"></i>
+      <i class="rightSide"></i>
+    </div>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <script>
+      const toggleClass = (selector, className) => {
+  const element = document.querySelector(selector);
+  if (element) {
+    element.addEventListener("click", () => {
+      element.classList.toggle(className);
+    });
+  }
+};
+
+toggleClass(".island_popup", "active");
+
+    </script>
+  </body>
+</html>
